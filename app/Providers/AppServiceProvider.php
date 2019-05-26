@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+        // On souhaite avec la variable category sur toutes les pages.
         View::share('categories',Category::where('id_parent','=',null)->get()); // identique à FetchAll()...
+//        View::share('total_products_cart',\Cart::getContent()->count());
     }
 }

@@ -24,6 +24,12 @@
                     </span>
                 @endforeach
                 <hr>
+                <form action="{{route('cart_add',['id'=>$product->id])}}" id="cart_add" method="POST">
+                    @csrf {{-- Permet de sécuriser la route --}}
+                <div>
+                    <label for="qty">Quantité</label>
+                    <input type="number" name="qty" value="1" class="form-control">
+                </div>
                 <label for="size">Choisissez votre taille</label>
                 <select name="size" id="size" class="form-control">
                     <option value="xs">XS</option>
@@ -33,9 +39,11 @@
                     <option value="xl">XL</option>
                     <option value="xxl">XXL</option>
                 </select>
-                <p>
-                    <a href="#" class="btn btn-cart my-2 btn-block"><i class="fas fa-shopping-cart"></i> Ajouter au Panier</a>
-                </p>
+{{--                <p>--}}
+{{--                    <a href="#" class="btn btn-cart my-2 btn-block"><i class="fas fa-shopping-cart"></i> Ajouter au Panier</a>--}}
+{{--                </p>--}}
+                </form>
+                <button form="cart_add" type="submit" class="btn btn-cart my-2 btn-block"><i class="fas fa-shopping-cart"></i> Ajouter au Panier</button>
 
             </div>
         </div>

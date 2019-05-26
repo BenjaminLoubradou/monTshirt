@@ -51,7 +51,8 @@
             </button>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i> Panier</a>
+                    <a class="nav-link" href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i> Panier
+                    </a>
                 </li>
             </ul>
         </div>
