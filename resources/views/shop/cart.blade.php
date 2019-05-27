@@ -3,6 +3,7 @@
     <section class="py-5">
         <div class="container">
             <h1 class="jumbotron-heading"> <span class="badge badge-primary ">Votre panier </span></h1>
+            @if($total_products_cart > 0)
             <table class="table table-bordered table-responsive-sm">
                 <thead>
                 <tr>
@@ -18,11 +19,11 @@
                     <td>
                         <img width="110" class="rounded-circle img-thumbnail"
                              src="produits/{{$product->attributes->photo}}" alt="">
-                        {{$product->name}}
+                        {{$product->name}} / Taille : {{strtoupper($product->attributes->size)}} {{-- on affiche la taille du tshirt afin d'avoir la différence entre deux tshirt identique de taille différente --}}
                         {{-- name fait appelle au nom d'un tshirt
                         dans le tableau \cart::add en fonction du produit--}}
-                        <a href="{{route('cart_remove',['id'=>$product->id])}}" class="btn btn-danger" >
-                            <i class="fas fa-trash"></i>
+                        <a href="{{route('cart_remove',['id'=>$product->id])}}"  class="btn btn-danger col-1 offset-2" >
+                            <i class="fas fa-trash" ></i>
                         </a>
                     </td>
                     <td>
@@ -30,7 +31,7 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $product->id }}">
                             <input name="qty" style="display: inline-block" id="qte"
-                                   class="form-control col-sm-4" type="number" value="{{$product->quantity}}">
+                                   class="form-control col-sm-4" type="number" value="{{$product->quantity}}" min="1"> br
 
                         <button  form="update_qty_{{$product->id}}" class="pl-2 btn btn-light">
                             <i class="fas fa-sync"></i>
@@ -66,7 +67,15 @@
                 </tr>
                 </tfoot>
             </table>
-            <a class="btn btn-block btn-outline-dark" href="">Commander</a>
+            <a class="btn btn-block btn-outline-dark" href="{{route('order_auth')}}">Commander</a>
+            @else
+                <p>Votre panier est vide...
+                    <a href="{{route('homepage')}}">
+                        <br><br>
+                        Continuez vos achats
+                    </a>
+                </p>
+            @endif
         </div>
     </section>
 @endsection

@@ -28,7 +28,7 @@
                     @csrf {{-- Permet de sécuriser la route --}}
                 <div>
                     <label for="qty">Quantité</label>
-                    <input type="number" name="qty" value="1" class="form-control">
+                    <input type="number" name="qty" value="1" class="form-control" min="1">
                 </div>
                 <label for="size">Choisissez votre taille</label>
                 <select name="size" id="size" class="form-control">

@@ -15,13 +15,14 @@ class CartController extends Controller
         $id_product = $request->id;
         $product = Product::find($id_product);
         \Cart::add(array(
-            'id' => $id_product,
+            'id' => $id_product."_".$request->size,
             'name' => $product->nom,
             'price' => $product->prix_ht,
             'quantity' => $request->qty,
             'attributes' => array(
                 'size'=>$request->size,
-                'photo'=>$product->photo_principale)
+                'photo'=>$product->photo_principale,
+                'id'=>$request->size)
         ));
         //redirection vers la page du panier
         return redirect(route('cart'));
@@ -50,12 +51,15 @@ class CartController extends Controller
         // mettre à jour la quantité d'un produit
         $qty = $request->qty;
         // rediriger vers la page paner avec les données de prix actualitées
-        \Cart::update($request->id,array(
-            'quantity' => array(
-                'relative' => false,
-                'value' => $qty
-            ),
-        ));
+        if($qty > 0){
+            \Cart::update($request->id,array(
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $qty
+                ),
+            ));
+        }
+
         //redirection vers la page panier
         return redirect(route('cart'));
     }

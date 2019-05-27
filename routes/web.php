@@ -32,3 +32,15 @@ Route::post('/cart/update','Shop\CartController@update')->name('cart_update');
 Route::get('/cart/remove/{id}','Shop\CartController@remove')->name('cart_remove');
 
 Route::get('/cart','Shop\CartController@cart')->name('cart');
+
+// Génere un ensemble URL qui gèrent les authorisations
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/order/auth','Shop\ProcessController@identification')->name('order_auth');
+
+Route::get('/order/adresse','Shop\ProcessController@adresse')->name('order_adresse');
+Route::post('/order/adresse','Shop\ProcessController@adresseStore')->name('order_adresse_store');
+
+Route::get('/order/paiement','Shop\ProcessController@paiement')->name('order_paiement');
