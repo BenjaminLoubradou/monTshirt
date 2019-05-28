@@ -22,7 +22,7 @@ class CartController extends Controller
             'attributes' => array(
                 'size'=>$request->size,
                 'photo'=>$product->photo_principale,
-                'id'=>$request->size)
+                'id'=>$id_product)
         ));
         //redirection vers la page du panier
         return redirect(route('cart'));

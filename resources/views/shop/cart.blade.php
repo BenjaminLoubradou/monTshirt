@@ -31,7 +31,7 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $product->id }}">
                             <input name="qty" style="display: inline-block" id="qte"
-                                   class="form-control col-sm-4" type="number" value="{{$product->quantity}}" min="1"> br
+                                   class="form-control col-sm-4" type="number" value="{{$product->quantity}}" min="1">
 
                         <button  form="update_qty_{{$product->id}}" class="pl-2 btn btn-light">
                             <i class="fas fa-sync"></i>

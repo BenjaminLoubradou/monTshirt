@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Adresse;
+use App\Order;
+use App\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -61,8 +63,58 @@ class ProcessController extends Controller
 
     }
 
+    //Etape 3 page paiement
     public function paiement(){
-        $total_a_payer = \Cart::getTolal();
+        $total_a_payer = \Cart::getTotal();
         return view('shop.process.paiement',compact('total_a_payer'));
+    }
+
+    // Etape 3bis > creation de al commande de la DB
+    public function confirmationCommande(){
+        //créer l'objet Order>hydrater
+        $order = new Order();
+        $order->total_ttc = \Cart::getTotal();
+        $order->total_ht = \Cart::getSubTotal();
+        $order->tva = \Cart::getTotal() - \Cart::getSubTotal();
+        $order->taux_tva = 20;
+
+        //Associer Order à une adresse de livraison
+        //récupérer le user connecté
+        $user = Auth::user();
+        $order->adresses_id = $user->adresse_id;
+
+        //Associer Order à l'utilisateur connecté
+        $order->user_id = $user->id;
+        $order->save();
+
+        //creer l'objet OrderProduct par produit dans le panier
+        $products = \Cart::getContent();
+        foreach ($products as $product){
+            $order_product = new OrderProduct();
+            $order_product->qty = $product['quantity'];
+            $order_product->prix_unitaire_ht = $product['price'];
+            $order_product->prix_unitaire_ttc = $product['price']*1.2;
+
+            $prix_total_ttc = ($product['price'] * $product['quantity']) * 1.2;
+            $prix_total_ht = $product['price'] * $product['quantity'];
+
+            $order_product->prix_total_ttc = $prix_total_ttc;
+            $order_product->prix_total_ht = $prix_total_ht;
+            $order_product->size = $product['attributes']['size'];
+            $order_product->order_id = $order->id;
+            $order_product->product_id = $product['attributes']['id'];
+            $order_product->save();
+
+            // vider le panier
+            \Cart::clear();
+            // rediriger vers la page Merci
+            return redirect(route('order_merci'));
+        }
+        //
+    }
+
+    // Etape 4 > page merci
+    public function merci(){
+        return view('shop.process.merci');
     }
 }

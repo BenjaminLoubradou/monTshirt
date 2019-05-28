@@ -21,15 +21,16 @@
                     <p>25 rue de la mode</p>
                     <p>75020 Paris</p>
                 </address>
-                <h4 class="mt-5">Total à régler: 59.00 € TTC</h4>
+                <h4 class="mt-5">Total à régler:
+                    {{number_format($total_a_payer,2)}} € TTC</h4>
 
             </div>
 
             <div class="row">
 
                 <div class="col-md-12 order-md-1">
-                    <button class="btn btn-warning btn-lg btn-block"
-                            type="submit">Valider ma commande</button>
+                    <a class="btn btn-warning btn-lg btn-block"
+                            href="{{route('order_confirmation')}}">Valider ma commande</a>
                 </div>
             </div>
         </div>

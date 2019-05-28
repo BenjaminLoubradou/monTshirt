@@ -44,3 +44,9 @@ Route::get('/order/adresse','Shop\ProcessController@adresse')->name('order_adres
 Route::post('/order/adresse','Shop\ProcessController@adresseStore')->name('order_adresse_store');
 
 Route::get('/order/paiement','Shop\ProcessController@paiement')->name('order_paiement');
+
+Route::get('/order/confirmation','Shop\ProcessController@confirmationCommande')->name('order_confirmation');
+
+Route::get('/order/merci','Shop\ProcessController@merci')->name('order_merci');
+
+Route::get('/backend/login','Backend\MainController@loginBackend')->name('backend_login');
