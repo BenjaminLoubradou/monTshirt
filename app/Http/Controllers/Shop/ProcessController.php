@@ -104,12 +104,12 @@ class ProcessController extends Controller
             $order_product->order_id = $order->id;
             $order_product->product_id = $product['attributes']['id'];
             $order_product->save();
-
+        }
             // vider le panier
             \Cart::clear();
             // rediriger vers la page Merci
             return redirect(route('order_merci'));
-        }
+
         //
     }
 

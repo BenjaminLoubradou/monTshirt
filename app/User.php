@@ -37,7 +37,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // récupérer tous les roles des utilisateurs
     public function roles(){
         return $this->belongsToMany('App\Role');
+    }
+
+    // Vérifier si un utilisateur a un role en particulier
+    public function hasRole($role){
+        if($this->roles()->where('nom','=',$role)->first()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

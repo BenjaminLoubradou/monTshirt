@@ -50,3 +50,10 @@ Route::get('/order/confirmation','Shop\ProcessController@confirmationCommande')-
 Route::get('/order/merci','Shop\ProcessController@merci')->name('order_merci');
 
 Route::get('/backend/login','Backend\MainController@loginBackend')->name('backend_login');
+Route::post('/backend/login','Auth\LoginController@authenticateBackend')->name('backend_login_submit');
+
+Route::middleware(['auth.admin'])->group(function(){
+    // on mets toutes les routes concernées par le middleware auth.admin
+    Route::get('/backend','Backend\MainController@index')->name('backend_homepage');
+    Route::get('/backend/order/{id}','Backend\MainController@orderShow')->name('backend_order_show');
+});
