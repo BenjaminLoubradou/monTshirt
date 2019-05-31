@@ -15,7 +15,7 @@ class AddFieldIdCategoryId extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->unsignedInteger('id_category');
+            $table->unsignedBigInteger('id_category');
             $table->foreign('id_category')
                 ->references('id')
                 ->on('categories')
